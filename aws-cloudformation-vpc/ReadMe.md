@@ -1,0 +1,1 @@
+A cloud formation configuration package to deploy an Amazon VPC with predefined presets to select: Subnet Tiers (Public and Private),  3 Availability Zones with Internet Connectivity. Configuration includes Subnets, Routing Tables, Internet Gateway, Nat Gateways. 
