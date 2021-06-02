@@ -1,0 +1,12 @@
+--- 
+files:
+  - path: src/main/java/com/temp/rds/CreateDBInstance.java
+    services:
+      - rds
+  - path: src/main/java/com/temp/rds/DescribeDBInstances.java
+    services:
+      - rds
+  - path: src/main/java/com/temp/rds/RebootDBInstance.java
+    services:
+      - rds        
+
