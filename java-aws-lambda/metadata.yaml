@@ -1,0 +1,20 @@
+--- 
+files:
+ - path: src/main/java/com/temp/lambda/CreateFunction.java
+   services:
+     - lambda
+ - path: src/main/java/com/temp/lambda/DeleteFunction.java
+   services:
+     - lambda
+ - path: src/main/java/com/temp/lambda/GetAccountSettings.java
+   services:
+     - lambda
+ - path: src/main/java/com/temp/lambda/LambdaInvoke.java
+   services:
+     - lambda
+ - path: src/main/java/com/temp/lambda/ListLambdaFunctions.java
+   services:
+     - lambda
+ - path: src/test/java/LambdaTest.java
+   services:
+     - lambda
