@@ -1,0 +1,1 @@
+Cloudformation Template to enable AWS security logging and activity monitoring services -AWS Config, AWS CloudTrail, and Amazon GuardDuty. S3 bucket to store CloudTrail and Config logs and CloudWatch log group to receive logs.
