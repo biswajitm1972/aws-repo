@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: ""
+Resources:
+  CustomConfigRule:
+    Type: "AWS::Config::ConfigRule"
+    Properties:
+      ConfigRuleName: "api_gw_private_restricted"
+      Scope:
+        ComplianceResourceTypes:
+          - "AWS::ApiGateway::RestApi"
+      Description: "A config rule that checks that all private APIs uses resource policy restricting to VPC endpoints or VPC in the same AWS account."
+      Source:
+        Owner: "CUSTOM_LAMBDA"
+        SourceIdentifier:
+          Fn::GetAtt:
+            - "LambdaFunctionCustomConfigRule"
+            - "Arn"
+        SourceDetails:
+          - EventSource: "aws.config"
+            MessageType: "ScheduledNotification"
+            MaximumExecutionFrequency: "TwentyFour_Hours"
+    DependsOn: "LambdaInvokePermissionsCustomConfigRule"
+  LambdaInvokePermissionsCustomConfigRule:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+          - "LambdaFunctionCustomConfigRule"
+          - "Arn"
+      Action: "lambda:InvokeFunction"
+      Principal: "config.amazonaws.com"
+  LambdaFunctionCustomConfigRule:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: "LambdaForapi_gw_private_restricted"
+      Handler: "index.lambda_handler"
+      Role:
+        Fn::GetAtt:
+          - "LambdaIamRoleCustomConfigRule"
+          - "Arn"
+      Runtime: "python3.6"
+      Code:
+        S3Bucket:
+          Fn::Sub:
+            - "biswa-aws-cf"
+            - Region:
+                Ref: "AWS::Region"
+        S3Key: "API_GW_PRIVATE_RESTRICTED.zip"
+      Timeout: 300
+    DependsOn: "LambdaIamRoleCustomConfigRule"
+  LambdaIamRoleCustomConfigRule:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: "IAMRoleForapi_gw_private_restrictedJGi"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "lambda.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/ReadOnlyAccess"
+        - "arn:aws:iam::aws:policy/service-role/AWSConfigRulesExecutionRole"
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      Policies: []
+Parameters: {}
+Metadata: {}
+Conditions: {}
