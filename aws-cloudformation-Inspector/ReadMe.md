@@ -1,1 +1,1 @@
-This Cloudformation template will setup Amazon Inspector to assess the security state of EC2 instances, including testing applications for exposure, vulnerabilities, and deviations from best practices. 
+This Cloudformation template will set up Amazon Inspector to assess the security state of EC2 instances, including testing applications for exposure, vulnerabilities, and deviations from best practices. 
