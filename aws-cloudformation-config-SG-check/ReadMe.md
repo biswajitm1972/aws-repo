@@ -1,0 +1,1 @@
+This Cloudformation template will create a Lambda Function for the Custom Config Rule, which checks security groups do not have an inbound rule with a port range of "All".
